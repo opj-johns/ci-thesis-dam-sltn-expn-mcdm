@@ -1,4 +1,4 @@
-\section{Methodology}\label{sec:methodology}
+\section{Chapter 2 - Methodology}\label{sec:methodology}
 
 \subsection*{Research Objectives and Sub-Questions}
 The overarching objective of this research is to support evidence-based dam site selection 
@@ -78,7 +78,7 @@ Subject to:
             \EqGGPMinFunctionSubFour
 Where $R$ is the feasible region of $x$ in the decision space.
 
-Dam Site Selection for Expansion, Weighted Goal Program Formulation:
+We apply this base model to our dam site expansion project as follows:
 
 Minimise:
         \EqDamWGPObjectiveEleven
@@ -97,6 +97,9 @@ Subject to:
         \EqSelectThreeDamsTwentyTwo
         \EqBudgetConstraintTwentyThree
 
+Similarly, the objective function Equation~$9$ has 10 terms, each representing a criteria. The function is minimizing all terms, which comprise of positive ($p_3,p_4,p_7,p_8,p_9$) and negative ($n_1,n_2,n_5,n_6,n_10$) deviations. For now, all terms are equally weighted (1). $h_i, c_i, r_i, t_i, pop_i, rain_i, res_i, d_i, road_i$ and $a_i$ represent the 10 criteria, dam height, reservoir storage capacity reservoir surface area, ,  annual temperature,   commune population, annual rainfall, disance to nearest conglomerate residence, distance to farmland, distance to nearest road, and farmland area respectively. Equations~$20$ and $21$
+represent the selections and budget constrains, where $x_i$ is binary and  $b_i$ is in millions of dollars.
+
 \subsection{Chebyshev Goal Programming}
 In Chebyshev Goal Programming (CGP) the objective is to minimize the maximum deviation of the goal. The CGP was first used by Flavell \cite{FLAVELL1976} but more recent examples are given in \cite{Despotis2008,HO2019}. This minmax criteria uses the $L_\infty$ metric and aims to achieve a balance between the different levels of the statisfaction of each of the goals. The model is defined as:
 
@@ -108,13 +111,13 @@ Subject to:
             \EqCGPConstraintEight
             \EqGGPMinFunctionSubFour
             \EqCGPConstraintNine
-All variables non-negative.
 
-Dam site selection for expansion, Chebyshev Goal Program Formulation:
+All variables non-negative. In the base Chebyshev Goal Programming (GP) model, the decision vector is denoted by $x$, which belongs to the feasible set $F$. For each goal $q=1,\dots,Q$, the achievement function is represented by $f_q(x)$ with the corresponding aspiration level $b_q$. The variables $n_q$ and $p_q$ denote the negative and positive deviations from the $q$-th goal, respectively. The parameters $u_q$ and $v_q$ are the weights assigned to the negative and positive deviations, reflecting their relative importance. The scalar $D$ represents the maximum weighted deviation, i.e., the Chebyshev distance to be minimized. Finally, $Q$ indicates the total number of goals considered in the model.
+
+We apply this base model to our dam site expansion project as follows:
 
 Minimise:
             \EqCGPMinFunctionSix
-
 Subject to:
             \EqDamHeightConstraintTwelve
             \EqDamCapacityConstraintThirteen
@@ -152,6 +155,9 @@ Subject to:
             \EqGGPMinFunctionSubFour
             \EqCGPConstraintNine
 The parameter $\alpha$ is a constant between 0 and 1 which controls the mix of optimization ($L_1$)and balance ($L_\infty$) in the acheivement function.
+Similarly in the EGP model, the decision vector is denoted by $x$, restricted to the feasible set $F$. The achievement function for each goal $q=1,\dots,Q$ is given by $f_q(x)$ with the aspiration level $b_q$. The variables $n_q$ and $p_q$ measure the negative and positive deviations from the $q$-th goal, respectively, while $u_q$ and $v_q$ denote their corresponding importance weights. The parameter $\alpha \in [0,1]$ controls the balance between minimizing the maximum weighted deviation, represented by $D$, and minimizing the sum of normalized weighted deviations across all goals. 
+Thus, the objective function $\alpha D + (1-\alpha)\sum_{q=1}^{Q}\left(\tfrac{u_q n_q}{b_q}+\tfrac{v_q p_q}{b_q}\right)$ combines the Chebyshev distance with the weighted $L_1$ norm, offering a compromise between efficiency and balance in goal satisfaction. Finally, $Q$ is the total number of goals in the model.
+
 
 Dam site selection for expansion, Extended Goal Program Formulation:
 
@@ -182,7 +188,6 @@ Subject to:
             \EqDConstraintNineNThirtyOne
             \EqDConstraintTenNThirtyTwo
 
-
 \subsection{Lexicographic Goal Programming}
 
 To formulate the lexicographic goal program algebraically, we define the number of priority levels as $L$ with corresponding index $l = 1, ..., L.$ Each priority level now becomes a function of a set of unwanted deviational variables which we define as $h_1(n, p)$, giving the equation below:
@@ -201,7 +206,7 @@ where each $h_1(n,p)$ contains a number of unwanted deviational variables. The e
 Where $u_q^l$ is the preferential weight associated with the minimisation of $n_q$ in the $l$th priority level. $v_q^l$ is the preferential weight associated with the minimisation of $p_q$ in the $l$th priority level. 
 
 To model our problem using the Lexicographic Goal Programming, we group goals into three priority levels, priority level 1 (Dam Hieght, Dam Capacity, Population, and Farmland Area), priority level 2 (Reservoir Area, Temperature, and Rainfall), and priority level 3 (Residence distance,Farmland distance, and Nearest road distance). In this caterization, we consider the goals in the first priority level as infinitely more important than goal in lower levels.
-In practice, this means that the optimization first focuses on minimizing deviations for the goals in priority level 1. Only after the best possible achievement of these goals is secured do we consider the goals in priority level 2, and subsequently priority level 3. At each stage, the solution space is restricted so that improvements at lower levels never come at the expense of higher-level goals. This hierarchical structure reflects the decision makers’ preferences, ensuring that the most critical objectives dominate the solution process.
+In practice, this means that the optimization first focuses on minimizing deviations for the goals in priority level 1. Only after the best possible achievement of these goals is secured do we consider the goals in priority level 2, and subsequently priority level 3. At each stage, the solution space is restricted so that improvements at lower levels never come at the expense of higher-level goals. This hierarchical structure reflects the decision makers' preferences, ensuring that the most critical objectives dominate the solution process.
 
 Let $P_1$ and $P_2$ be the objective function values for Priority 1 and Priority 2, the EqLGPObjectivePriorityThreeThirtySeven model can be expressed as follows:
 Priority one (1) Model:
@@ -212,10 +217,8 @@ Minimize:
 Subject to:
 
        \begin{center}
-        Equations ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
-       \end{center}  
-        
-
+        Equations ~$28$ to ~$50$
+        \end{center}  
 Priority two (2) Model:
 
 Minimise:
@@ -223,8 +226,8 @@ Minimise:
 
 Subject to:
          \begin{center}
-        $Equations$ ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
-       \end{center}  
+        Equations ~$28$ to ~$50$
+        \end{center}  
         \EqLGPObjectivePriorityOneConstraintThirtyEight
 
 Priority three (3) Model:
@@ -233,9 +236,9 @@ Minimise:
         \EqLGPObjectivePriorityThreeThirtySeven
 
 Subject to:
-         \begin{center}
-        $Equations$ ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
-       \end{center}  
+        \begin{center}
+        Equations ~$28$ to ~$50$
+        \end{center}   
         \EqLGPObjectivePriorityOneConstraintThirtyEight
         \EqLGPObjectivePriorityTwoConstraintThirtyNine
 
@@ -272,7 +275,7 @@ The concept of Multi-Choice Goal Programming is applied to Weigthed Goal Program
 For our dam site selection project, 5 of the targets can be could assume multiple values. These are population, residence distance, farmland distance, nearest road, and farmland area. Thus, an extra goal value, which is 10 percent (10\%) more than the original goal is created for each.
 
 \subsubsection{Multi-Choice Weighted Goal Program (MCWGP)}
-To extend Weighted Goal program to multi-choice goal program, the orginal weigted goal program defined from equations ~\eqref{eq:EqDamWGPObjectiveEleven} to ~\eqref{eq:EqBudgetConstraintTwentyThree} is maintained. the only change will be in the targets of the constraints corresponding to population, residence distance, farmland distance, nearest road, and farmland area as showed below:
+To extend Weighted Goal program to multi-choice goal program, the orginal weigted goal program defined from equations ~$9$ to ~$21$ are maintained. The only change is in the targets of the constraints corresponding to population, residence distance, farmland distance, nearest road, and farmland area as showed below:
 
 Minimise:
 \EqDamWGPObjectiveEleven
@@ -284,7 +287,7 @@ Subject to:
         \EqMCWGPNearestRoadConstraintFourtyFive
         \EqMCWGPFarmlandAreaConstraintFourtySix
         \begin{center}
-                All other equations from equation ~\eqref{eq:EqDamWGPObjectiveEleven} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+               ~$9$ to ~$21$ 
         \end{center}
 
 
@@ -304,7 +307,7 @@ Subject to:
               \EqMCWGPNearestRoadConstraintFourtyFive
               \EqMCWGPFarmlandAreaConstraintFourtySix
               \begin{center}
-                      All other equations from equation ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+                      Equations ~$10$ to ~$21$ unchanged.
               \end{center}
               \EqSelectThreeDamsTwentyTwo
               \EqBudgetConstraintTwentyThree
@@ -333,7 +336,7 @@ Subjec to:
               \EqMCWGPNearestRoadConstraintFourtyFive
               \EqMCWGPFarmlandAreaConstraintFourtySix
               \begin{center}
-                      All other equations from equation ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+                      Equations ~$10$ to ~$21$ unchanged.
               \end{center}
               \EqSelectThreeDamsTwentyTwo
               \EqBudgetConstraintTwentyThree
