@@ -1,0 +1,358 @@
+\newcommand{\EqGGPMinFunctionOne}{
+    \begin{equation}
+        a = h(n,p)
+        \label{eq:EqGGPMinFunctionOne}
+    \end{equation}
+}
+\newcommand{\EqGGPMinFunctionSubTwo}{
+    \begin{equation}
+        f_q(x) + n_q - p_q = b_q \qquad q = 1, ..., Q
+        \label{eq:EqGGPMinFunctionSubTwo}
+    \end{equation}
+}
+\newcommand{\EqGGPMinFunctionSubThree}{
+    \begin{equation}
+        x \varepsilon R
+        \label{eq:EqGGPMinFunctionSubThree}
+    \end{equation}
+}
+\newcommand{\EqGGPMinFunctionSubFour}{
+    \begin{equation}
+        n_q, p_q \geq 0 \qquad q = 1, ..., Q
+        \label{eq:EqGGPMinFunctionSubFour}
+    \end{equation}
+}
+\newcommand{\EqWGPMinFunctionFive}{
+    \begin{equation}
+        a = \sum_{q=1}^{Q}\left(\frac{u_q n_q}{b_q}+\frac{v_q p_q}{b_q}\right)
+        \label{eq:EqWGPMinFunctionFive}
+    \end{equation}
+}
+\newcommand{\EqCGPMinFunctionSix}{
+    \begin{equation}
+        a = D
+        \label{eq:EqCGPMinFunctionSix}
+    \end{equation}
+}
+\newcommand{\EqCGPConstraintSeven}{
+    \begin{equation}
+        \frac{u_q n_q}{b_q}+\frac{v_q p_q}{b_q} \leq D \qquad q = 1, ..., Q
+        \label{eq:EqCGPConstraintSeven}
+    \end{equation}
+}
+\newcommand{\EqCGPConstraintEight}{
+    \begin{equation}
+        x \varepsilon F
+        \label{eq:EqCGPConstraintEight}
+    \end{equation}
+}
+\newcommand{\EqCGPConstraintNine}{
+    \begin{equation}
+        D \geq 0
+        \label{eq:EqCGPConstraintNine}
+    \end{equation}
+}
+\newcommand{\EqEGPMinFunctionTen}{
+    \begin{equation}
+        a = \alpha D + (1 - \alpha)\sum_{q=1}^{Q}\left(\frac{u_q n_q}{b_q} + \frac{v_q p_q}{b_q}\right)
+        \label{eq:EqEGPMinFunctionTen}
+    \end{equation}
+}
+
+% ----------------------------------------------------
+% === Objective Function ===
+\newcommand{\EqDamWGPObjectiveEleven}{
+    \begin{equation}  
+        \begin{split}  
+        \min a = \frac{1}{47}n_1 + \frac{1}{3}n_2 + \frac{1}{0.04}p_3 + \frac{1}{48.74}p_4
+        + \frac{1}{0.52}n_5 + \\ \frac{1}{22.07}n_6 + \frac{1}{0.35}p_7 + \frac{1}{0.32}p_8
+        + \frac{1}{23}p_9 + \frac{1}{0.68}n_{10}
+        \end{split}
+        \label{eq:EqDamWGPObjectiveEleven}
+    \end{equation}
+}
+
+% === Dam Height ===
+\newcommand{\EqDamHeightConstraintTwelve}{
+    \begin{equation}
+        \sum_{i=1}^{28} h_i x_i + n_1 - p_1 = 47
+        \label{eq:EqDamHeightConstraintTwelve}
+    \end{equation}
+}
+
+% === Dam Capacity ===
+\newcommand{\EqDamCapacityConstraintThirteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} c_i x_i + n_2 - p_2 = 3
+        \label{eq:EqDamCapacityConstraintThirteen}
+    \end{equation}
+}
+
+% === Reservoir Area ===
+\newcommand{\EqReservoirAreaConstraintFourteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} r_i x_i + n_3 - p_3 = 0.04
+        \label{eq:EqReservoirAreaConstraintFourteen}
+    \end{equation}
+}
+
+% === Temperature ===
+\newcommand{\EqTemperatureConstraintFifteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} t_i x_i + n_4 - p_4 = 48.74
+        \label{eq:EqTemperatureConstraintFifteen}
+    \end{equation}
+}
+
+% === Population ===
+\newcommand{\EqPopulationConstraintSixteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} pop_i x_i + n_5 - p_5 = 0.52
+        \label{eq:EqPopulationConstraintSixteen}
+    \end{equation}
+}
+
+% === Rainfall ===
+\newcommand{\EqRainfallConstraintSeventeen}{
+    \begin{equation}
+        \sum_{i=1}^{28} rain_i x_i + n_6 - p_6 = 22.07
+        \label{eq:EqRainfallConstraintSeventeen}
+    \end{equation}
+}
+
+% === Residence ===
+\newcommand{\EqResidenceConstraintEighteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} res_i x_i + n_7 - p_7 = 1.86
+        \label{eq:EqResidenceConstraintEighteen}
+    \end{equation}
+}
+
+% === Farmland Distance ===
+\newcommand{\EqFarmlandDistanceConstraintNineteen}{
+    \begin{equation}
+        \sum_{i=1}^{28} fd_i x_i + n_8 - p_8 = 0.32
+        \label{eq:EqFarmlandDistanceConstraintNineteen}
+    \end{equation}
+}
+
+% === Nearest Road ===
+\newcommand{\EqNearestRoadConstraintTwenty}{
+    \begin{equation}
+        \sum_{i=1}^{28} road_i x_i + n_9 - p_9 = 0.23
+        \label{eq:EqNearestRoadConstraintTwenty}
+    \end{equation}
+}
+
+% === Farmland Area ===
+\newcommand{\EqFarmlandAreaConstraintTwentyOne}{
+    \begin{equation}
+        \sum_{i=1}^{28} fa_i x_i + n_{10} - p_{10} = 0.68
+        \label{eq:EqFarmlandAreaConstraintTwentyOne}
+    \end{equation}
+}
+
+
+% === Selection (3 dams) ===
+\newcommand{\EqSelectThreeDamsTwentyTwo}{
+    \begin{equation}
+        \sum_{i=1}^{28} x_i = 3
+        \label{eq:EqSelectThreeDamsTwentyTwo}    
+    \end{equation}
+}
+
+
+% === Budget Constraint ===
+\newcommand{\EqBudgetConstraintTwentyThree}{
+    \begin{equation}
+        \sum_{i=1}^{28} b_i x_i \le 500
+        \label{eq:EqBudgetConstraintTwentyThree}
+    \end{equation}
+}   
+
+
+% === D Constraints ===
+\newcommand{\EqDConstraintOneNTwentyFour}{
+    \begin{equation}
+        \frac{1}{47}n_1 \le D
+        \label{eq:EqDConstraintOneNTwentyFour}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintTwoNTwentyFive}{
+    \begin{equation}
+        \frac{1}{3}n_2 \le D
+        \label{eq:EqDConstraintTwoNTwentyFive}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintThreeNTwentySix}{
+    \begin{equation}
+        \frac{1}{0.04}p_3 \le D
+        \label{eq:EqDConstraintThreeNTwentySix}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintFourNTwentySix}{
+    \begin{equation}
+        \frac{1}{0.04}p_4 \le D
+        \label{eq:EqDConstraintFourNTwentySix}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintFiveNTwentySeven}{
+    \begin{equation}
+        \frac{1}{48.74}n_5 \le D
+        \label{eq:EqDConstraintFiveNTwentySeven}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintSixNTwentyEight}{
+    \begin{equation}
+        \frac{1}{0.52}n_6 \le D
+        \label{eq:EqDConstraintSixNTwentyEight}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintSevenNTwentyNine}{
+    \begin{equation}
+        \frac{1}{22.07}p_7 \le D
+        \label{eq:EqDConstraintSevenNTwentyNine}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintEightNThirty}{
+    \begin{equation}
+        \frac{1}{0.32}p_8 \le D
+        \label{eq:EqDConstraintEightNThirty}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintNineNThirtyOne}{
+    \begin{equation}
+        \frac{1}{0.23}p_9 \le D
+        \label{eq:EqDConstraintNineNThirtyOne}
+    \end{equation}
+}
+
+\newcommand{\EqDConstraintTenNThirtyTwo}{
+    \begin{equation}
+        \frac{1}{0.68}n_{10} \le D
+        \label{eq:EqDConstraintTenNThirtyTwo}
+    \end{equation}
+}
+
+\newcommand{\EqEGPObjectiveThirtyThree}{
+    \begin{equation}
+        \begin{split}
+            \min Z = \alpha D_1 + (1 - \alpha) \bigg( &
+            \frac{1}{47}n_1 + \frac{1}{3}n_2 + \frac{1}{0.04}p_3 + \frac{1}{48.74}p_4
+            + \frac{1}{0.52}n_5 + \frac{1}{22.07}n_6 \\
+            & + \frac{1}{0.35}p_7 + \frac{1}{0.32}p_8 + \frac{1}{23}p_9
+            + \frac{1}{0.68}n_{10} \bigg)
+        \end{split}
+        \label{eq:EqEGPObjectiveThirtyThree}
+    \end{equation}
+}
+
+
+\newcommand{\EqLObjectiveThirtyThree}{
+    \begin{equation}
+        a = \left[h_1(n, p),\qquad h_2(n, p),...,\qquad h_L(n, p)\right]
+        \label{eq:EqLObjectiveThirtyThree}
+    \end{equation}
+}
+
+\newcommand{\EqLObjectiveThirtyFour}{
+    \begin{equation}
+        h_1(n, p) = \sum_{q=1}^{Q}\left(\frac{u_q^l n_q}{b_q}+\frac{v_q^l p_q}{b_q}\right)
+        \label{eq:EqLObjectiveThirtyFour}
+    \end{equation}
+}
+
+\newcommand{\EqLGPObjectivePriorityOneThirtyFive}{
+    \begin{equation}  
+        \min a = \frac{1}{47}n_1 + \frac{1}{3}n_2
+        + \frac{1}{0.52}n_5 + \frac{1}{0.68}n_{10}
+        \label{eq:EqLGPObjectivePriorityOneThirtyFive}
+    \end{equation}
+}
+
+\newcommand{\EqLGPObjectivePriorityTwoThirtySix}{
+    \begin{equation}  
+        \min a =  \frac{1}{0.04}p_3 + \frac{1}{48.74}p_4 \frac{1}{22.07}n_6
+        \label{eq:EqLGPObjectivePriorityTwoThirtySix}
+    \end{equation}
+}
+
+\newcommand{\EqLGPObjectivePriorityThreeThirtySeven}{
+    \begin{equation}  
+        \min a = \frac{1}{0.35}p_7 + \frac{1}{0.32}p_8 + \frac{1}{23}p_9
+        \label{eq:EqLGPObjectivePriorityThreeThirtySeven}
+    \end{equation}
+}
+
+\newcommand{\EqLGPObjectivePriorityOneConstraintThirtyEight}{
+    \begin{equation}  
+        \frac{1}{47}n_1 + \frac{1}{3}n_2
+        + \frac{1}{0.52}n_5 + \frac{1}{0.68}n_{10} = P_1
+        \label{eq:EqLGPObjectivePriorityOneConstraintThirtyEight}
+    \end{equation}
+}
+
+\newcommand{\EqLGPObjectivePriorityTwoConstraintThirtyNine}{
+    \begin{equation}  
+        \frac{1}{0.04}p_3 + \frac{1}{48.74}p_4 \frac{1}{22.07}n_6 = P_2
+        \label{eq:EqLGPObjectivePriorityTwoConstraintThirtyNine}
+    \end{equation}
+}
+
+\newcommand{\EqMCGPObjectiveFourty}{
+    \begin{equation}
+        \min a = \sum_{i=1}^{n}\left(d_i^+ + d_i^-\right)
+        \label{eq:EqMCGPObjectiveFourty}
+    \end{equation}
+}
+
+\newcommand{\EqMCGPConstraintFourtyOne}{
+    \begin{equation}
+         f_i(X) - d_i^+ + d_i^- = g_{ij} * z_{ij}, \qquad i = 1, 2, ..., n
+        \label{eq:EqMCGPConstraintFourtyOne}
+    \end{equation}
+}
+
+
+\newcommand{\EqMCWGPPopulationConstraintFourtyTwo}{
+    \begin{equation}
+        \sum_{i=1}^{28} pop_i x_i + n_5 - p_5 = 0.52z_1 + 0.57(1-z_1)
+        \label{eq:EqMCWGPPopulationConstraintFourtyTwo}
+    \end{equation}
+}
+
+% === Residence ===
+\newcommand{\EqMCWGPResidenceConstraintFourtyThree}{
+    \begin{equation}
+        \sum_{i=1}^{28} res_i x_i + n_7 - p_7 = 1.86z_2 + 2.05(1-z_2)
+        \label{eq:EqMCWGPResidenceConstraintFourtyThree}
+    \end{equation}
+}
+
+\newcommand{\EqMCWGPFarmlandDistanceConstraintFourtyFour}{
+    \begin{equation}
+        \sum_{i=1}^{28} fd_i x_i + n_8 - p_8 = 0.32z_3 + 0.35(1-z_3)
+        \label{eq:EqMCWGPFarmlandDistanceConstraintFourtyFour}
+    \end{equation}
+}
+\newcommand{\EqMCWGPNearestRoadConstraintFourtyFive}{
+    \begin{equation}
+        \sum_{i=1}^{28} road_i x_i + n_9 - p_9 = 0.23z_3 + 0.25(1-z_3)
+        \label{eq:EqMCWGPNearestRoadConstraintFourtyFive}
+    \end{equation}
+}
+
+\newcommand{\EqMCWGPFarmlandAreaConstraintFourtySix}{
+    \begin{equation}
+        \sum_{i=1}^{28} fa_i x_i + n_{10} - p_{10} = 0.68z_5 + 0.75(1-z_5)
+        \label{eq:EqMCWGPFarmlandAreaConstraintFourtySix}
+    \end{equation}
+}

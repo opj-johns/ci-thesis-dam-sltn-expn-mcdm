@@ -1,0 +1,30 @@
+% =============================
+% LGP vs LGP–MCGP: Results pack
+% Needs: \usepackage{booktabs,pgfplots}
+% \pgfplotsset{compat=1.18}
+% =============================
+
+% ---------- Numbers (from your runs) ----------
+% Baseline LGP objectives by priority
+\def\LGPpOne{0.0000}
+\def\LGPpTwo{0.0416}
+\def\LGPpThree{83.4264}
+
+% LGP–MCGP objectives by priority
+\def\LGPMCpOne{0.0000}
+\def\LGPMCpTwo{0.0416}
+\def\LGPMCpThree{82.7889}
+
+% Selected dams (IDs) --- fill these as needed
+\def\LGPbaseSel{20,21,28}% (optional: put baseline LGP final portfolio here, e.g., {6,18,20})
+\def\LGPMCselPone{6,7,18}% from your     P1 result
+\def\LGPMCselPtwo{20,21,28}% TODO: fill with P2 IDs from your run, e.g., {a,b,c}
+\def\LGPMCselPthree{20,21,28}% TODO: fill with P3 IDs from your run, e.g., {a,b,c}
+
+% Chosen MCGP target switches (same across priorities in your output):
+% z=1 -> lower target used; z=0 -> upper target used
+\def\zPop{1}   % Population: use 0.52
+\def\zRes{0}   % Nearest residence: use 2.05
+\def\zFarmD{0} % Farmland distance: use 0.35
+\def\zRoad{0}  % Nearest road: use 0.25
+\def\zFarmA{1} % Farmland area: use 0.68

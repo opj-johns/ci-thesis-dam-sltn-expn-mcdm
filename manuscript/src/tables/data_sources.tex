@@ -1,0 +1,30 @@
+\begin{table}[!ht]
+\centering
+\caption{Summary of Criteria and Data Sources}
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{2.5cm}|p{4cm}|}
+\hline
+\textbf{Criterion} & \textbf{Data Source} & \textbf{Unit} & \textbf{Processing Notes} \\
+\hline
+Dam height & FAO AQUASTAT \cite{FAO_AQUASTAT_MAR} & Meters & Direct extraction from national database \\
+\hline
+Reservoir storage capacity & FAO AQUASTAT \cite{FAO_AQUASTAT_MAR} & Million m$^3$ & Used as initial reservoir volume \\
+\hline
+Reservoir surface area & FAO AQUASTAT \cite{FAO_AQUASTAT_MAR} & km$^2$ & Used to assess spatial footprint \\
+\hline
+Annual rainfall (median) & NASA POWER \cite{NASA_POWER_API} & mm/year & Aggregated from monthly data (2010–2024) \\
+\hline
+Annual temperature (median) & NASA POWER \cite{NASA_POWER_API} & °C & Aggregated from monthly data (2010–2024) \\
+\hline
+Commune population & SIG-Maroc \cite{SIG_Maroc_Shapefiles} & Persons & Derived from shapefiles; normalized via min–max scaling \\
+\hline
+Distance to nearest road & SIG-Maroc \cite{SIG_Maroc_Shapefiles} & Kilometers & Calculated using GeoPandas and provincial road shapefiles \\
+\hline
+Farmland area & LULC Archive \cite{LULC_MegaArchive} & m$^2$ & Extracted from LULC shapefiles via geospatial processing \\
+\hline
+Distance to farmland & LULC Archive \cite{LULC_MegaArchive} & Kilometers & Spatially computed from dam-site centroid \\
+\hline
+Distance to nearest conglomerate residence & Google Earth + Geopy \cite{congloResidence2025} & Kilometers & Visual inspection + spatial computation using Python \\
+\hline
+\end{tabular}
+\label{tab:data_sources}
+\end{table}

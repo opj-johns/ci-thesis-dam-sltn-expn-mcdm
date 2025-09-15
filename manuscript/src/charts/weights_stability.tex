@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\pgfplotstableread[col sep=comma]{../csv/weight_stability_indices.csv}\stab
+\caption{Stability index by dam and model (S = selections / 10).}
+\label{tab:weights_stability}
+\pgfplotstabletypeset[
+  columns/dam/.style={column name=Dam, column type={S[table-format=2.0]}},
+  columns/WGP/.style={column name=WGP, column type={S}},
+  columns/LGP_P1/.style={column name=LGP P1, column type={S}},
+  columns/LGP_P2/.style={column name=LGP P2, column type={S}},
+  columns/LGP_P3/.style={column name=LGP P3, column type={S}},
+  every head row/.style={before row=\toprule, after row=\midrule},
+  every last row/.style={after row=\bottomrule},
+]{\stab}
+\end{table}

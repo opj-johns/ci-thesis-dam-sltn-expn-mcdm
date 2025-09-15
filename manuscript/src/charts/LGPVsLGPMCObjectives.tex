@@ -1,0 +1,28 @@
+% =============================
+% FIGURE 1: Objective comparison by priority
+% =============================
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  width=\textwidth, height=6.5cm,
+  bar width=14pt,
+  ymin=0,
+  enlarge x limits=0.20,
+  ylabel={Objective value},
+  xlabel={Lexicographic priority},
+  symbolic x coords={P1,P2,P3},
+  xtick=data,
+  legend style={at={(0.5,1.02)},anchor=south,legend columns=-1,draw=none,fill=none},
+  nodes near coords,
+  every node near coord/.append style={font=\scriptsize,/pgf/number format/fixed}
+]
+\addplot coordinates {(P1,\LGPpOne) (P2,\LGPpTwo) (P3,\LGPpThree)};
+\addplot coordinates {(P1,\LGPMCpOne) (P2,\LGPMCpTwo) (P3,\LGPMCpThree)};
+\legend{LGP (baseline), LGP--MCGP}
+\end{axis}
+\end{tikzpicture}
+\caption{Lexicographic objectives by priority. MCGP matches P1 and P2 and achieves a small improvement at P3 ($\approx0.64$).}
+\label{fig:LGPVsLGPMCObjectives}
+\end{figure}

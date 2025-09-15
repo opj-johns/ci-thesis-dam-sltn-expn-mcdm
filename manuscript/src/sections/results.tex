@@ -1,0 +1,115 @@
+\section{Results}\label{sec:results}
+
+\subsection{Weighted Goal Programming Solution}
+The model selected Dams 18, 19, and 23 with a total cost of \$481.5M. Relative to the ten goals, the solution exceeds several targets (e.g., height, capacity) while minimizing the weighted penalty of deviations, resulting in a weighted deviation score of 14.93. We can observe from Figure \ref{fig:wgpDeviationsChart} that the farmland area criterion was the driving factor in the WGP solution, with dam height and rainfall also exerting a significant influence. These three criteria together shaped the final weighted deviation score of 14.93. Table \ref{tab:model_results} lists per-dam attributes; Table \ref{tab:wgpAcheivementVsTarget}    summarizes achieved values versus targets and the corresponding deviations. This indicates a balanced compromise solution under the specified weights and budget.
+
+\input{charts/wgpDeviationsChart.tex}
+\input{tables/wgpAcheivementVsTarget.tex}
+
+\subsection{Chebyshev Goal Programming Solution}
+In the Chebyshev (min–max) goal programming run, we minimize the maximum normalized, weighted deviation across all ten goals, yielding an optimal scalar deviation of $ D^* = 25.2174$. Under the selection and budget constraints (exactly 3 dams, $\sum cost <= \$500$), the model selects dams 19, 20, and 28, with a total estimated cost of $\$158.7 + \$166.5 + \$172.1 = \$497.3$ million, thereby fully respecting the cap. Relative to the targets, this solution equalizes the worst-off goal (in the sense of the achievement scalarization), so no single criterion dominates the compromise. The binding deviations are those that attain $ D^*$ after normalization by their respective scaling factors, while the remaining goals exhibit strictly smaller normalized deviations. The binding criterion is Nearest road (Criterion 9) since it's weighted deviation $p_9/0.23 = 25.2174 = D^*$ (Table~\ref{tab:cgpWeightedDeviations}), all other deviations are strictly smaller. This indicates the worst normalized shortfall at the optimum occurs on the road-proximity goal, with all other goals at or within the Chebyshev bound. Detailed per-criterion achievements and deviations are reported in Table~\ref{tab:cgpAchievementVsTarget}, with the selected alternative attributes summarized in Table~\ref{tab:model_results}.
+
+\input{tables/cgpAchievementVsTarget.tex}
+\input{tables/cgpWeightedDeviations.tex}
+
+\subsection{Extended Goal Programming Solution}
+% =========================
+% EGP: one-paragraph summary (optional)
+% =========================
+In the Extended Goal Programming (EGP) run with $\alpha=0.8$, the model selects Dams $16$, $19$, and $28$ with a total estimated cost of $\$154.8+\$158.7+\$172.1=\$485.6$\,M (within the $\$500$\,M cap). The optimized bound on the Chebyshev-normalized terms is $D^\star=27.0$, while the composite objective value is $f^\star=\alpha D^\star + (1-\alpha)\!\left(\frac{p_3}{0.04}+\frac{p_4}{48.74}+\frac{p_7}{0.35}+\frac{p_8}{0.32}+\frac{p_9}{23}\right)=32.6816$. The $D$-binding criterion is \emph{Temperature} (criterion~4) because $\tfrac{p_4}{0.04}=27.0$ attains $D^\star$; the weighted-sum part is chiefly driven by \emph{Residence} via $\tfrac{p_7}{0.35}\approx 48.17$. Tables~\ref{tab:model_results} and \ref{tab:egpAchievementVsTarget} detail the selected alternatives and goal achievements; Fig.~\ref{fig:egpDeviations} visualizes both the $D$-normalized terms and the $(1-\alpha)$ weighted-sum terms for each criterion. 
+
+
+\input{tables/egpAchievementVsTarget.tex}
+\input{charts/egpDeviations.tex}
+
+\subsection{Lexicographic Goal Programming Solution}
+In the Lexicographic Goal Programming (LGP) solution, we optimize three priority levels in sequence. \textbf{Priority~1} minimizes $(1/47)n_1+(1/3)n_2+(1/0.52)n_5+(1/0.68)n_{10}$ and attains $0$, implying no underachievement on height, capacity, population, or farmland area at the optimum. \textbf{Priority~2} then minimizes $(1/0.04)p_3+(1/48.74)p_4+(1/22.07)n_6$ subject to Priority~1’s optimum, yielding $0.0416$ (driven by temperature: $p_4/48.74\approx 0.0416$). \textbf{Priority~3} finally minimizes $(1/0.35)p_7+(1/0.32)p_8+(1/23)p_9$ under the earlier priorities, giving $83.4264$. The resulting portfolio selects Dams~\textbf{19, 21, 28} with total cost $\$158.7+\$164.3+\$172.1=\$495.1$\,M (within the \$500\,M cap). Table~\ref{tab:model_results} lists the attributes of the selected dams, and Table~\ref{tab:lgpAchievementVsTarget} reports achieved values versus targets and deviations; notably, temperature and the Priority~3 social–access criteria (residence, farmland distance, road proximity) drive the lexicographic refinement Figure \ref{fig:lgpPriorityThree}.
+
+\input{tables/lgpAchievementVsTarget.tex}
+\input{tables/lgpPriorityObjectives.tex}
+\input{charts/lgpPriorityThree.tex}
+
+In Fig.~\ref{fig:lgpPriorityThree}, a clear pattern emerges. \textbf{Dam\~19} is selected by all four models, indicating a robust choice insensitive to the change from weighted-sum (WGP) to Chebyshev (CGP) to extended (EGP) and lexicographic (LGP) formulations. A near-core site, \textbf{Dam\~28}, appears in three models (CGP, EGP, LGP) but not WGP, suggesting that minimax and priority-based emphases favor it. The remaining slot is model-sensitive: WGP picks {18, 23}, CGP swaps in {20}, EGP prefers {16}, and LGP chooses {21}. Overall, moving from WGP to CGP/EGP/LGP consolidates consensus around {19, 28} while the third selection pivots according to each model’s treatment of deviations (weighted-sum vs.\ max-deviation vs.\ lexicographic priorities).
+
+\input{charts/modelDamSelectionMap.tex}
+
+\subsection{Multi-Choice GP Extension Solutions}
+\input{charts/fval_base_vs_mcgp.tex}
+\input{charts/site_selection_base_vs_mcgp.tex}
+
+\subsubsection{Weighted GP}
+In the multi–choice extension of the weighted goal program (WGP–MCGP), five social/access criteria were allowed target flexibility. The model selected the lower bounds for \emph{Population} (0.52) and \emph{Farmland area} (0.68), while adopting the upper bounds for \emph{Nearest residence} (2.05), \emph{Farmland distance} (0.35), and \emph{Nearest road} (0.25), as shown in Table~\ref{tab:wgpMC_choices}. The resulting weighted deviation objective is $28.7245$, which is higher than the fixed–target WGP value ($14.9277$) by $+13.7968$ (Figure \ref{tab:wgpMCGPSummary}), reflecting the tighter upper–bound targets imposed on three criteria. Fig.~\ref{fig:wgpMC_intervals} visualizes the chosen target levels across the flexible goals and the model output is reported in \ref{tab:mcgpResult}.      
+
+\input{tables/wgpMCGPChoices.tex}
+\input{tables/wgpMCGPSummary.tex}
+\input{charts/wgpMCGPIntervals.tex}
+
+\subsubsection{Chebyshev GP}
+Allowing target flexibility on five socio-environmental criteria retains the CGP portfolio $\{19,20,28\}$ while slightly improving the minimax objective from $D^{\star}\!=\!25.2174$ to $25.1304$ (Table~\ref{tab:cgpMCGPSummary}). The model chooses the lower targets for Population and Farmland area, and the upper targets for Nearest residence, Farmland distance, and Nearest road (Table~\ref{tab:cgpMCGPTargets}). With the selected dams, the worst normalized deviation is still \emph{Nearest road} ($p_9/0.23$), followed by Farmland distance and Reservoir area (Figure~\ref{fig:cgpMCGPDeviations}); all other normalized deviations are zero in the minimax sense. Achieved values relative to the chosen targets are detailed in Table~\ref{tab:cgpMCGPAchievementVsTarget} and the model output is reported in \ref{tab:mcgpResult}
+
+\input{tables/cgpMCGPSummary.tex}
+\input{tables/cgpMCGPTargets.tex}
+\input{charts/cgpMCGPDeviations.tex}
+\input{tables/cgpMCGPAchievementVsTarget.tex}
+
+\subsubsection{Extended GP}
+With $\alpha=0.8$, the extended goal program under multi-choice targets selects the same portfolio as the CGP--MCGP case, $\{19,20,28\}$, at a total cost of \$497.3\,M (Table~\ref{tab:egpMCGPSummary}). Target flexibility is exercised by choosing lower bounds for Population and Farmland area and upper bounds for Nearest residence, Farmland distance, and Nearest road (Table~\ref{tab:egpMCGPTargets}). The worst normalized deviation remains \emph{Nearest road} ($p_9/0.23=25.1304$), defining $D^{\star}$, followed by Farmland distance and Reservoir area (Figure~\ref{fig:egpMCGPDeviations}). The composite objective evaluates to $f=0.8\times 25.1304 + 0.2\times 62.2094 = 32.5462$, indicating that the portfolio balances a modest improvement in the minimax term with a larger weighted-sum contribution, consistent with the $\alpha$-weighted trade-off; per-criterion achievements and deviations are listed in Table~\ref{tab:egpMCGPAchievementVsTarget}.
+
+
+\input{tables/egpMCGPSummary.tex}
+\input{tables/egpMCGPTargets.tex}
+\input{tables/egpMCGPAchievementVsTarget.tex}
+\input{charts/egpMCGPDeviations.tex}
+
+\subsubsection{Lexicographic GP}
+Relative to the baseline LGP, introducing multi-choice targets leaves the Priority~1 and Priority~2 objectives unchanged while delivering a modest improvement at Priority~3 (from 83.4264 to 82.7889; Table~\ref{tab:LGPVsLGPMCObjectives}, Fig.~\ref{fig:LGPVsLGPMCObjectives}). The chosen target pattern is consistent across priorities—lower targets for Population and Farmland area, upper targets for Nearest residence, Farmland distance, and Nearest road (Table~\ref{tab:LPGMCGPTargets})—and the P1 portfolio is \{\LGPMCselPone\}, with the final P3 portfolio shown in Table~\ref{tab:LGP_LGPMC_selected_sets} and Fig. \ref{fig:lgpmc_selection_map}.
+
+
+\input{tables/LGPVsLGPMCObjectives.tex}
+\input{tables/LPGMCGPTargets.tex}
+\input{tables/LGP_LGPMC_selected_sets.tex}
+\input{charts/LGPVsLGPMCObjectives.tex}
+\input{charts/lgpmc_selection_map.tex}
+
+
+\subsection{Sensitivity Analysis}
+Sensitivity analysis (SA) is a crucial step in multi-criteria decision-making (MCDM), as it evaluates the robustness of solutions when key model parameters are perturbed. In goal programming applications, where weights, targets, and other constraints guide the optimization, small changes can sometimes lead to disproportionately large shifts in the selected alternatives or in the overall objective performance. Testing models under these conditions therefore helps answer the central question: are the solutions stable enough to be trusted for real-world implementation, or do they fluctuate under modest changes in assumptions?
+
+In this study, two types of sensitivity analysis were carried out to systematically investigate robustness across the four goal programming models considered—Weighted Goal Programming (WGP), Lexicographic Goal Programming (LGP), Chebyshev Goal Programming (CGP), and Extended Goal Programming (EGP).
+
+We varied the distribution of weights across objectives using ten randomized test sets and compared the resulting solutions against the base model. The purpose was to determine whether changes in emphasis among objectives significantly alter the selection of dam sites or the associated objective function values. Key questions included: Which dam sites are consistently selected across different weight configurations? Which sites appear only under specific weight emphases? How variable are the objective values under weight perturbations?
+
+Here, the emphasis shifted from weights to the target levels defined for each goal. Ten different target scenarios were generated and applied across all four models, with results compared against their respective base solutions. The objective was to assess: How sensitive is each model to adjustments in target values? Do some models show large swings in objective values while others remain stable? Which dam sites persistently appear across target variations, and which are target-sensitive?
+
+Together, these analyses offer complementary insights. Weight SA reveals the impact of subjective trade-offs among competing objectives, while Target SA shows how solution stability depends on the feasibility and realism of the goals themselves. In the following sections, we first present the results of Weight SA, before moving on to Target SA.
+
+\subsubsection{Weight Analysis}
+The weight sensitivity analysis focused on how variations in the relative importance of objectives influenced the Weighted Goal Programming (WGP) and Lexicographic Goal Programming (LGP) models. Figure \ref{fig:weight_heatmap} maps dam-site selections across ten randomized weight sets compared with the base WGP solution. The heatmap shows that dams 18 and 19 were consistently chosen in nearly all scenarios, while other sites such as 12, 13, and 23 appeared only under specific weight allocations. This highlights the presence of a “core set” of robust sites that are insensitive to weight perturbations, alongside more marginal sites that enter solutions when emphasis shifts to particular objectives.
+
+Objective function values also varied under weight perturbations. The lollipop plot in Figure \ref{fig:wgp_sa_lollipop_fval} compares the performance of each test set against the base WGP solution. While the base solution achieved an objective value of 14.93, the sensitivity runs produced substantially lower values ranging between 0.26 and 2.50. This suggests that, although the base configuration is balanced across objectives, certain weight allocations heavily prioritize specific goals at the expense of overall balance, yielding smaller numerical deviations. In other words, the weight distribution strongly shapes model efficiency, but the solutions remain internally consistent across scenarios.
+
+A more direct measure of robustness is shown in the frequency analysis of dam selections (Figure \ref{fig:wgp_sa_frequency}). Dam 18 was selected in 70\% of runs, dam 19 in 80\%, and dam 23 in 60\%, while other sites appeared much less frequently. The overlay of the base solution confirms that the sites chosen there align with those most frequently selected under sensitivity runs, reinforcing the interpretation of robustness. Finally, the LGP model illustrates a different dynamic (Figure \ref{fig:lgp_fval_tradeoff}): while Priority 1 and Priority 2 objectives remain essentially stable across weight sets, Priority 3 shows wide variation, with objective values ranging from 2.5 to 13.1. This reflects the lexicographic structure—higher priorities dominate decision outcomes, leaving lower priorities sensitive to residual trade-offs. Together, these findings show that weight changes mainly affect the inclusion of marginal dam sites and the performance of lower-priority goals, while a stable subset of core sites persists across scenarios.
+
+\input{charts/weight_heatmap.tex}
+\input{charts/wgp_sa_lollipop_fval.tex}
+\input{charts/wgp_sa_frequency.tex}
+\input{charts/lgp_fval_tradeoff.tex}
+
+
+\subsubsection{Target Analysis}
+The target sensitivity analysis investigated how variations in goal target levels affected model outcomes across the four formulations (WGP, CGP, EGP, and LGP). Figure \ref{fig:target_sa_linechart_with_base} shows the changes in objective values across ten target sets, compared with dashed lines representing the base models. WGP displayed remarkable stability, with values clustered tightly around its base of 14.93. LGP was also comparatively stable, with modest variation between 23 and 38. In contrast, CGP and EGP exhibited wide fluctuations: CGP ranged from 0.0 to 238.5, and EGP from 3.0 to 203.4. The logarithmic scale emphasizes these contrasts, highlighting that while WGP and LGP maintain consistent performance, CGP and EGP are highly sensitive to shifts in target definitions.
+
+These variations are further reflected in dam-site selection patterns. Figure \ref{fig:dam_selection_targets_all_models} compares selected sites across models and target sets, with base solutions included for reference. WGP consistently selected the core set of dams 18, 19, and 20 across all scenarios, reflecting its stability under target perturbations. LGP displayed moderate variability, occasionally switching between site 19, 20, 21, and 28 depending on the target scenario. EGP and CGP were considerably more dynamic, with their selections shifting more frequently across sites such as 1, 16, 19, 20, and 28. This shows that while WGP and LGP preserve a degree of selection robustness, CGP and EGP yield more target-sensitive outcomes that may complicate interpretation and implementation.
+
+Table \ref{tab:target_sa_stats} summarizes the descriptive statistics of objective values across the ten target scenarios for each model. WGP again emerges as the most stable (standard deviation = 0.63), followed by LGP (6.21), while CGP (87.44) and EGP (71.29) show very high variability. Finally, the grouped bar chart in Figure \ref{fig:target_sa_barplot_filtered} presents the frequency of site selection across target sets. The results reinforce the earlier patterns: dams 18–20 are robustly selected by WGP, dam 28 is highly persistent in LGP and partially in CGP/EGP, while sites such as 1, 15, 16, and 22 appear intermittently in the more sensitive models. Taken together, these findings demonstrate that target variation exerts strong influence on CGP and EGP, while WGP and LGP provide more stable recommendations and a clearer distinction between robust and target-sensitive dam sites.
+
+\input{charts/target_sa_linechart_with_base.tex}        
+\input{charts/dam_selection_targets_all_models.tex}
+\input{tables/target_sa_stats.tex}
+\input{charts/target_sa_barplot_filtered.tex}
+
+
+
+
+
+

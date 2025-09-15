@@ -1,0 +1,381 @@
+\section{Methodology}\label{sec:methodology}
+
+\subsection*{Research Objectives and Sub-Questions}
+The overarching objective of this research is to support evidence-based dam site selection 
+for Morocco’s future water infrastructure expansion, under conditions of competing 
+economic, social, environmental, and technical objectives. Specifically, the study addresses the challenge of selecting three sites from a pool of 28 candidate dams, while ensuring that the solutions remain robust, transparent, and adaptable to shifting policy priorities.
+
+To operationalize this objective, the study applies four Goal Programming (GP) formulations, 
+each addressing a distinct sub-question:
+
+\begin{itemize}
+    \item \textbf{Weighted Goal Programming (WGP):} What is the most balanced solution when 
+    objectives are explicitly weighted according to their relative      ?
+    \item \textbf{Lexicographic Goal Programming (LGP):} What solution emerges when objectives 
+    are ranked hierarchically and pursued in strict priority order?
+    \item \textbf{Chebyshev Goal Programming (CGP):} How can the selection be made fair by 
+    minimizing the maximum deviation across all objectives?
+    \item \textbf{Extended Goal Programming (EGP):} How do flexible formulations, which 
+    penalize deviations asymmetrically, alter site selection when stakeholder preferences 
+    are uneven?
+\end{itemize}
+
+In addition to these base models, the research incorporates Multi-Choice Goal Programming (MCGP) extensions, which allow for more realistic goal setting by considering intervals or multiple aspiration levels rather than fixed targets. This extension captures the uncertainty and diversity of stakeholder preferences, broadening the scope of feasible solutions.
+
+Finally, a Sensitivity Analysis (SA) is performed on both weights and targets to 
+evaluate the robustness and reliability of the proposed solutions. The SA addresses questions 
+such as: \textit{How stable are the selected dam sites under changing weight assignments?} and 
+\textit{Which dams remain consistently selected across different target scenarios?}
+
+\subsection{Criteria Selection}
+The robustness of any Multi-Criteria Decision-Making (MCDM) model depends fundamentally on the choice of evaluation criteria, since these define the dimensions along which dam sites are assessed. The inclusion or exclusion of particular indicators can significantly influence outcomes, as previous studies on dam planning have demonstrated \cite{Roudgarmi2019}. In this study, ten criteria were selected to evaluate and prioritize dam sites for investment in Morocco, combining technical, environmental, socio-economic, and infrastructural dimensions to ensure a balanced assessment. Table 1 summarizes these criteria, their units, data sources, and justifications.
+
+Technical indicators such as dam height, storage capacity, and reservoir area were included because they determine the physical potential of a site to store water. These measures are widely used in hydropower site selection literature and remain fundamental in investment decisions \cite{MOIZ2018309,Rana2020}. Climatic conditions, represented by temperature and rainfall, provide essential insight into the sustainability of storage and inflows. High temperatures intensify evaporation losses, while rainfall history indicates hydrological reliability, both of which are critical under Morocco’s variable climate \cite{Belokda2018}.
+
+Socio-economic dimensions were captured by commune population, proximity to residential centers, farmland area, and farmland distance. Population reflects demand pressure and potential beneficiaries, though normalization was conducted to prevent large communes from skewing results \cite{Ersoy2022,Kosareva2018}. Likewise, farmland measures account for the agricultural benefits of dam expansion, emphasizing the role of irrigation in Morocco’s water strategy \cite{Ghumman2020}. Proximity to settlements ensures accessibility and equity, aligning with social sustainability goals.
+
+Infrastructural connectivity, represented by the distance to the nearest road, was included because access routes directly affect construction costs, operational efficiency, and maintenance feasibility \cite{YI2010852}. Together, these ten dimensions ensure that the analysis captures Morocco’s triple objective: meeting water demand, ensuring economic returns, and promoting long-term sustainability.
+
+To estimate the targets for each criterion, the model maximizes values under the constraint of selecting three dams with a total budget of 500 million USD. The maximum achievable objective then serves as the benchmark or “target.” This approach ensures that the targets are not arbitrary but instead reflect realistic upper bounds within fiscal and operational constraints.
+
+Insights from prior studies further underscore the importance of such criteria design. For instance, Rana and Patel (2020) demonstrated that including population data shifted site rankings compared to purely technical models \cite{Rana2020}, while \cite{TEMEL2023159152} showed that incorporating ecological considerations produced different priorities than cost-based evaluations alone . These findings confirm that criteria selection fundamentally shapes decision outcomes.
+
+The ten selected criteria provide a comprehensive and context-appropriate framework for evaluating Morocco’s dams. By incorporating physical, climatic, social, and infrastructural factors (see Table 1), the study ensures methodological rigor while reflecting principles of collective intelligence.
+
+\subsection{Data Source}
+% --------------
+Hydrological and structural attributes of dams were obtained from the Food and Agriculture Organization (FAO) AQUASTAT database for Morocco \cite{FAO_AQUASTAT_MAR}. Dam height is reported in meters (m) and refers to the vertical distance from the crest to the lowest foundation point. Storage capacity is measured in million cubic meters (10\textsuperscript{6} m\textsuperscript{3}) and reflects the initial designed volume of the reservoir, not considering reduction due to sedimentation. Reservoir surface area is reported in square kilometers (km\textsuperscript{2}) and shows the water-covered footprint when the reservoir is at full supply level.
+
+Climatic data were sourced from the NASA POWER database \cite{NASA_POWER_API}, which provides historical rainfall and temperature records. For each dam-site commune, monthly values from 2010 to 2024 were aggregated into annual totals, and the median annual values were taken as representative estimates. Rainfall is expressed in millimeters per year (mm/year), while temperature is measured in degrees Celsius (°C).
+
+Socio-economic and land-use indicators were extracted from shapefiles obtained from SIG-Maroc \cite{SIG_Maroc_Shapefiles} and processed with QGIS and Python. Commune population provides an estimate of the number of residents living in the same commune as the dam site. Because population values varied widely (range: 1,276–1,494,413; span: 1,493,137) \cite{Ersoy2022}, the data were normalized using min–max scaling into a 0–50 range to reduce the influence of extremes \cite{Kosareva2018,population_normalization_py}. Distance to the nearest road was calculated in kilometers (km) using geographical coordinates of each dam \cite{Coordinates2025}, provincial route shapefiles \cite{routes2025}, and the Python GeoPandas package \cite{roadsCode2025}. Farmland area was derived from land use/land cover (LULC) shapefiles \cite{LULC_MegaArchive} and estimated in square meters (m\textsuperscript{2}), while farmland distance was calculated as the shortest distance between the dam-site centroid and the closest farmland polygon \cite{farmlandAreaCode2025}.
+
+Finally, nearest conglomerate residence — defined as the shortest distance between the dam site and the nearest highly populated settlement — was estimated by visual inspection of Google Earth imagery \cite{congolerateResidenceGearth2025}, combined with distance calculations using the Geopy Python package \cite{congloResidence2025}.
+
+\input{tables/data_sources.tex}
+
+\subsection{Goal Porgramming Variants}
+
+A generic goal program \cite{jones2010} may be presented as:
+
+Minimize:
+            \EqGGPMinFunctionOne
+Subject to:
+            \EqGGPMinFunctionSubTwo
+            \EqGGPMinFunctionSubThree
+            \EqGGPMinFunctionSubFour    
+
+The generic Goal Programme has Q goals involving n decision variables $x = x_1,x_2, ...,x_n.$ Each goal $q$ has a target value $b_q$ and an acheived value $f_q(x)$. Each goal then has a positive or negative deviational varibales $p_q$ and $n_q$ respectively. $p_q$ and $n_q$ are non-negative and cannot be non-zero simultaneously. $h$ is a function of the deviational variables representing the penalties associated with non-acheivement of the targets and R is the feasible region of $x$ in decision space.
+
+\subsection{Weighted Goal Programming}
+In Weighted Goal Programming (WGP) the objective function is a simple sum of the deviational variables by allocating suitable weigts to each of them (the $L_1 $ metric). \cite{jones2010} recommend normalisation and assuming that $b_q > 0 \qquad q = 1, ..., Q$, the model becomes:
+
+Minimize:
+            \EqWGPMinFunctionFive
+Subject to:
+            \EqGGPMinFunctionSubTwo
+            \EqGGPMinFunctionSubThree
+            \EqGGPMinFunctionSubFour
+Where $R$ is the feasible region of $x$ in the decision space.
+
+Dam Site Selection for Expansion, Weighted Goal Program Formulation:
+
+Minimise:
+        \EqDamWGPObjectiveEleven
+
+Subject to:
+        \EqDamHeightConstraintTwelve
+        \EqDamCapacityConstraintThirteen
+        \EqReservoirAreaConstraintFourteen
+        \EqTemperatureConstraintFifteen
+        \EqPopulationConstraintSixteen
+        \EqRainfallConstraintSeventeen
+        \EqResidenceConstraintEighteen
+        \EqFarmlandDistanceConstraintNineteen
+        \EqNearestRoadConstraintTwenty
+        \EqFarmlandAreaConstraintTwentyOne
+        \EqSelectThreeDamsTwentyTwo
+        \EqBudgetConstraintTwentyThree
+
+\subsection{Chebyshev Goal Programming}
+In Chebyshev Goal Programming (CGP) the objective is to minimize the maximum deviation of the goal. The CGP was first used by Flavell \cite{FLAVELL1976} but more recent examples are given in \cite{Despotis2008,HO2019}. This minmax criteria uses the $L_\infty$ metric and aims to achieve a balance between the different levels of the statisfaction of each of the goals. The model is defined as:
+
+Minimize:
+            \EqCGPMinFunctionSix
+Subject to:
+            \EqGGPMinFunctionSubTwo
+            \EqCGPConstraintSeven
+            \EqCGPConstraintEight
+            \EqGGPMinFunctionSubFour
+            \EqCGPConstraintNine
+All variables non-negative.
+
+Dam site selection for expansion, Chebyshev Goal Program Formulation:
+
+Minimise:
+            \EqCGPMinFunctionSix
+
+Subject to:
+            \EqDamHeightConstraintTwelve
+            \EqDamCapacityConstraintThirteen
+            \EqReservoirAreaConstraintFourteen
+            \EqTemperatureConstraintFifteen
+            \EqPopulationConstraintSixteen
+            \EqRainfallConstraintSeventeen
+            \EqResidenceConstraintEighteen
+            \EqFarmlandDistanceConstraintNineteen
+            \EqNearestRoadConstraintTwenty
+            \EqFarmlandAreaConstraintTwentyOne
+            \EqSelectThreeDamsTwentyTwo
+            \EqBudgetConstraintTwentyThree
+            \EqDConstraintOneNTwentyFour
+            \EqDConstraintTwoNTwentyFive
+            \EqDConstraintThreeNTwentySix
+            \EqDConstraintFourNTwentySix
+            \EqDConstraintFiveNTwentySeven
+            \EqDConstraintSixNTwentyEight
+            \EqDConstraintSevenNTwentyNine
+            \EqDConstraintEightNThirty
+            \EqDConstraintNineNThirtyOne
+            \EqDConstraintTenNThirtyTwo
+
+\subsection{Extended Goal Programming}  
+Extended Goal programming (EGP) was first proposed by Romero \cite{ROMERO2001} in the context of a lexicographic ordering of the goals and was later generalised in \cite{ROMERO2004}. Some recent applications include \cite{Guijarro2018,Pal2014}. It aims to allow both of the above approaches by combining the optimisation given by WGP and the balancing given by CGP. For a nonlexicographic EGP, the general model is:
+
+
+Minimise:
+            \EqEGPMinFunctionTen
+Subject to:
+            \EqGGPMinFunctionSubTwo
+            \EqCGPConstraintSeven
+            \EqCGPConstraintEight
+            \EqGGPMinFunctionSubFour
+            \EqCGPConstraintNine
+The parameter $\alpha$ is a constant between 0 and 1 which controls the mix of optimization ($L_1$)and balance ($L_\infty$) in the acheivement function.
+
+Dam site selection for expansion, Extended Goal Program Formulation:
+
+Minimise:
+        \EqEGPObjectiveThirtyThree
+
+Subject to:
+            \EqDamHeightConstraintTwelve
+            \EqDamCapacityConstraintThirteen
+            \EqReservoirAreaConstraintFourteen
+            \EqTemperatureConstraintFifteen
+            \EqPopulationConstraintSixteen
+            \EqRainfallConstraintSeventeen
+            \EqResidenceConstraintEighteen
+            \EqFarmlandDistanceConstraintNineteen
+            \EqNearestRoadConstraintTwenty
+            \EqFarmlandAreaConstraintTwentyOne
+            \EqSelectThreeDamsTwentyTwo
+            \EqBudgetConstraintTwentyThree
+            \EqDConstraintOneNTwentyFour
+            \EqDConstraintTwoNTwentyFive
+            \EqDConstraintThreeNTwentySix
+            \EqDConstraintFourNTwentySix
+            \EqDConstraintFiveNTwentySeven
+            \EqDConstraintSixNTwentyEight
+            \EqDConstraintSevenNTwentyNine
+            \EqDConstraintEightNThirty
+            \EqDConstraintNineNThirtyOne
+            \EqDConstraintTenNThirtyTwo
+
+
+\subsection{Lexicographic Goal Programming}
+
+To formulate the lexicographic goal program algebraically, we define the number of priority levels as $L$ with corresponding index $l = 1, ..., L.$ Each priority level now becomes a function of a set of unwanted deviational variables which we define as $h_1(n, p)$, giving the equation below:
+
+Minimize:
+            \EqLObjectiveThirtyThree
+Subject to:
+            \EqGGPMinFunctionSubTwo
+            \EqCGPConstraintEight
+            \EqGGPMinFunctionSubFour   
+
+where each $h_1(n,p)$ contains a number of unwanted deviational variables. The exact nature of $h_1(n,p)$ depends on the nature of the goal programme to be formulated, but if we assume that it is linear and separable then it will assume the form 
+
+            \EqLObjectiveThirtyFour
+
+Where $u_q^l$ is the preferential weight associated with the minimisation of $n_q$ in the $l$th priority level. $v_q^l$ is the preferential weight associated with the minimisation of $p_q$ in the $l$th priority level. 
+
+To model our problem using the Lexicographic Goal Programming, we group goals into three priority levels, priority level 1 (Dam Hieght, Dam Capacity, Population, and Farmland Area), priority level 2 (Reservoir Area, Temperature, and Rainfall), and priority level 3 (Residence distance,Farmland distance, and Nearest road distance). In this caterization, we consider the goals in the first priority level as infinitely more important than goal in lower levels.
+In practice, this means that the optimization first focuses on minimizing deviations for the goals in priority level 1. Only after the best possible achievement of these goals is secured do we consider the goals in priority level 2, and subsequently priority level 3. At each stage, the solution space is restricted so that improvements at lower levels never come at the expense of higher-level goals. This hierarchical structure reflects the decision makers’ preferences, ensuring that the most critical objectives dominate the solution process.
+
+Let $P_1$ and $P_2$ be the objective function values for Priority 1 and Priority 2, the EqLGPObjectivePriorityThreeThirtySeven model can be expressed as follows:
+Priority one (1) Model:
+
+Minimize:
+        \EqLGPObjectivePriorityOneThirtyFive
+
+Subject to:
+
+       \begin{center}
+        Equations ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
+       \end{center}  
+        
+
+Priority two (2) Model:
+
+Minimise:
+        \EqLGPObjectivePriorityTwoThirtySix
+
+Subject to:
+         \begin{center}
+        $Equations$ ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
+       \end{center}  
+        \EqLGPObjectivePriorityOneConstraintThirtyEight
+
+Priority three (3) Model:
+
+Minimise:
+        \EqLGPObjectivePriorityThreeThirtySeven
+
+Subject to:
+         \begin{center}
+        $Equations$ ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree}
+       \end{center}  
+        \EqLGPObjectivePriorityOneConstraintThirtyEight
+        \EqLGPObjectivePriorityTwoConstraintThirtyNine
+
+\subsection{Multi-Choice Goal Programming}
+In traditional goal programming, a decision maker specifies a single aspiration level for each goal. For example, a target profit, a desired level or service, or environmental impact. The model then seeks to minimize the difference between what is acheived and this single target.
+
+However, in many real-world problems, it is unrealistic to think that there is only one acceptable target. Decision Makers may instead face a situation where several possible aspiration levels are reasonable. For example, a company might aim for at least \$1M in profit, but would also be satisfied if it reaches \$1.2M or \$1.3M. Similarly, a community might consider different acceptable levels of water storage or pollution reduction.
+
+This is where Multi-Choice Goal Programming (MCGP) comes in. Instead of fixing just one aspiration level per goal, MCGP allows multiple aspiration levels to be set. The model then chooses the most appropriate level during optimization, depending on what is feasible given the constraints. This flexibility better reflects the real uncertainty and negotiation invloved in decision making.
+
+MCGP General Formulation
+
+The general idea of the MCGP can be written as \cite{CHANG2007}:
+
+Minimise:
+       \EqMCGPObjectiveFourty
+
+Subject to:
+       \EqMCGPConstraintFourtyOne
+
+Where:
+\begin{itemize}
+  \item $f_i(X)$ is the achievement of goal $i$
+  \item $g_ij$ is one of the possible aspiration levels for goal i
+  \item $d_i^+$ and $d_i^-$ are the over-archievement deviations
+  \item $z_ij$ is a binary variable that selects which aspiration level is chosen for goal $i$
+  \item $X$ is the set of decision varibales subject to feasiblity constraints.
+\end{itemize}
+Under each goal, the model not only minimizes deviations but also chooses which level among the multiple options is best matched under the given conditions.
+
+\subsection{Applying Multi-Choice Goal Programming}
+
+The concept of Multi-Choice Goal Programming is applied to Weigthed Goal Program model (WGP), Chebyshev Goal Program (CGP), and Extended Goal Program (EGP).
+For our dam site selection project, 5 of the targets can be could assume multiple values. These are population, residence distance, farmland distance, nearest road, and farmland area. Thus, an extra goal value, which is 10 percent (10\%) more than the original goal is created for each.
+
+\subsubsection{Multi-Choice Weighted Goal Program (MCWGP)}
+To extend Weighted Goal program to multi-choice goal program, the orginal weigted goal program defined from equations ~\eqref{eq:EqDamWGPObjectiveEleven} to ~\eqref{eq:EqBudgetConstraintTwentyThree} is maintained. the only change will be in the targets of the constraints corresponding to population, residence distance, farmland distance, nearest road, and farmland area as showed below:
+
+Minimise:
+\EqDamWGPObjectiveEleven
+
+Subject to:
+        \EqMCWGPPopulationConstraintFourtyTwo   
+        \EqMCWGPResidenceConstraintFourtyThree
+        \EqMCWGPFarmlandDistanceConstraintFourtyFour
+        \EqMCWGPNearestRoadConstraintFourtyFive
+        \EqMCWGPFarmlandAreaConstraintFourtySix
+        \begin{center}
+                All other equations from equation ~\eqref{eq:EqDamWGPObjectiveEleven} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+        \end{center}
+
+
+Where $ z_1, z_2, z_3, z_4$, and $z_5$ are binary vairables.
+
+\subsubsection{Multi-Choice Chebyshev Goal Program (MCWGP)}
+In a similar approach, we extend the Chebyshev Goal Program with the target flexibility of the multi-choice goal program. To acheive this, we maintain all equations of the the CGP and change the targets for population, residence, farmland, nearest road, and farm area constraints.
+
+Minimize:
+              \EqCGPMinFunctionSix
+
+Subject to:
+                
+              \EqMCWGPPopulationConstraintFourtyTwo   
+              \EqMCWGPResidenceConstraintFourtyThree
+              \EqMCWGPFarmlandDistanceConstraintFourtyFour
+              \EqMCWGPNearestRoadConstraintFourtyFive
+              \EqMCWGPFarmlandAreaConstraintFourtySix
+              \begin{center}
+                      All other equations from equation ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+              \end{center}
+              \EqSelectThreeDamsTwentyTwo
+              \EqBudgetConstraintTwentyThree
+              \EqDConstraintOneNTwentyFour
+              \EqDConstraintTwoNTwentyFive
+              \EqDConstraintThreeNTwentySix
+              \EqDConstraintFourNTwentySix
+              \EqDConstraintFiveNTwentySeven
+              \EqDConstraintSixNTwentyEight
+              \EqDConstraintSevenNTwentyNine
+              \EqDConstraintEightNThirty
+              \EqDConstraintNineNThirtyOne
+              \EqDConstraintTenNThirtyTwo
+
+Where $ z_1, z_2, z_3, z_4$, and $z_5$ are binary vairables.
+
+\subsubsection{Multi-Choice Chebyshev Goal Program (MCWGP)}
+In a similar way, an Extended Goal Programming version of weighted goal program would be the usual EGP with the targets of the appropriate goals modefied.
+
+Minimise:
+              \EqEGPObjectiveThirtyThree
+Subjec to:
+              \EqMCWGPPopulationConstraintFourtyTwo   
+              \EqMCWGPResidenceConstraintFourtyThree
+              \EqMCWGPFarmlandDistanceConstraintFourtyFour
+              \EqMCWGPNearestRoadConstraintFourtyFive
+              \EqMCWGPFarmlandAreaConstraintFourtySix
+              \begin{center}
+                      All other equations from equation ~\eqref{eq:EqDamHeightConstraintTwelve} to ~\eqref{eq:EqBudgetConstraintTwentyThree} remain unchanged. 
+              \end{center}
+              \EqSelectThreeDamsTwentyTwo
+              \EqBudgetConstraintTwentyThree
+              \EqDConstraintOneNTwentyFour
+              \EqDConstraintTwoNTwentyFive
+              \EqDConstraintThreeNTwentySix
+              \EqDConstraintFourNTwentySix
+              \EqDConstraintFiveNTwentySeven
+              \EqDConstraintSixNTwentyEight
+              \EqDConstraintSevenNTwentyNine
+              \EqDConstraintEightNThirty
+              \EqDConstraintNineNThirtyOne
+              \EqDConstraintTenNThirtyTwo
+
+\subsection{Sensitivity Analysis}
+Dam site selection is inherently complex, characterized by multiple criteria whose influences are uncertain. Sensitivity Analysis (SA) accesses how variations in inputs affect model output\cite{Jakub2023}.
+
+The objective of SA in this project is to to answer the question: How stable are the outcomes of the various site selection models?
+
+\subsubsection{Sensitivity Analysis test data generation}
+Two Sensitivity Analysis (SA) test are conducted, weighted analysis and target analysis. Weighted SA determines the effect of slight changes in weight to the outcomes of the models. It is conducted for Weighted GP and Lexicographic GP models. For WGP SA test, each term in the objecive function received a weight (decimal value between 0 and 1). All weight within a test weight set sum up to one(1). The model is ran 10 times with 10 different weight sets and he output recorded. Target analysis verifies how changes in targets affect the original outcome. It is conducted for all four models. Similarly, the models are ran 10 times with 10 different set of targets, each criteria receiving a different target value in each ran. All test are conducted keeping dam site selection number (3) and budget ($\$500M$) constant. This assumes no uncertainty in the proposed budget for constructing 3 dam sites.
+
+10 weight sets, each for a term in the WGP model were generated using dirichlet sampling\cite{Neal2000}. The Dirichlet generator creates a uniformly distributed vector across the goal simplex. The Dirichlet distribution is a statistical tool used when you have several proportions that must add up to one. It’s the multi-category version of the Beta distribution and is often used in Bayesian modeling because of it's has convenient mathematical properties\cite{Lin2016}. Dirichlet sampling has been effectively used in modeling income-share distributions, portfolio weighting, and objective weighting\cite{khoi2025,Duangkamon2002,Williams2024}.
+
+In MCDM, a moderate number of iterations is sufficient to capture stability patterns without overburdening computation. For instance, \cite{Triantaphyllou1997} highlight that sensitivity analysis in decision models does not require exhaustive runs; rather, a limited number of systematic variations can reveal whether rankings are robust to weight changes. Similarly, \cite{Belton2002} note that a relatively small set of scenarios (often 5–15) is adequate to detect meaningful changes in alternatives’ rankings. Therefore, conducting 10 rounds provides a balanced approach—enough to observe whether rankings shift under plausible weight variations, while keeping the analysis efficient.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
