@@ -1,0 +1,1 @@
+{"rule":"EN_COMPOUNDS_MULTI_MODEL","sentence":"^\\QThis multi-model perspective moves beyond the dominance of single-method studies in dam planning and highlights the value of comparative modeling \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q.\\E$"}
