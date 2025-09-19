@@ -1,3 +1,4 @@
 socio-spatial
 Chebyshev
 satisficing
+Chebyshev-normalized
