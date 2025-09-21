@@ -1,0 +1,50 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=8pt,
+  width=16cm,
+  height=8cm,
+  ymin=0,
+  xlabel={Test set},
+  ylabel={Objective function value (fval)},
+  symbolic x coords={1,2,3,4,5,6,7,8,9,10},
+  xtick=data,
+  enlarge x limits=0.06,
+  ymajorgrids,
+  legend style={at={(0.5,-0.18)},anchor=north,legend columns=2,font=\small},
+  nodes near coords,
+  nodes near coords style={
+    /pgf/number format/fixed,
+    /pgf/number format/precision=4,
+    font=\footnotesize,
+    text=black,
+    yshift=1pt,
+    % rotate=45, anchor=west
+  },
+  tick label style={font=\small},
+  label style={font=\small}
+]
+
+% WGP SA (barfillbase)
+\addplot+[fill=barfillbase, draw=barfillbase!60!black]
+coordinates {
+  (1,0.41) (2,1.61) (3,0.60) (4,0.84) (5,0.25)
+  (6,0.28) (7,1.96) (8,2.49) (9,0.93) (10,1.47)
+};
+\addlegendentry{WGP SA}
+
+% LGP SA (barfillmcgp)
+\addplot+[fill=barfillmcgp, draw=barfillmcgp!60!black]
+coordinates {
+  (1,5.04) (2,9.51) (3,2.58) (4,10.58) (5,3.23)
+  (6,9.67) (7,8.80) (8,5.58) (9,2.50) (10,13.10)
+};
+\addlegendentry{LGP SA}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Sensitivity analysis: WGP vs.\ LGP objective values across weight test sets.}
+\label{fig:sa_wgp_vs_lgp}
+\end{figure}

@@ -1,0 +1,69 @@
+% Uses your pre-defined colors:
+% \definecolor{barfillbase}{HTML}{B0A195} % WGP
+% \definecolor{barfillmcgp}{HTML}{838A94} % LGP
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=16cm,
+  height=8cm,
+  xlabel={Test set},
+  ylabel={Dam site ID},
+  % ymin=0, % numeric axis OK; we'll use symbolic y coords
+  symbolic y coords={1,3,11,12,13,18,19,21,23,28},
+  ytick={1,3,11,12,13,18,19,21,23,28},
+  xtick={1,2,3,4,5,6,7,8,9,10},
+  xmin=0.5, xmax=10.7,
+  enlarge x limits=false,
+  ymajorgrids,
+  scatter/classes={
+    wgp={mark=*, mark size=3pt, fill=barfillbase, draw=barfillbase!60!black},
+    lgp={mark=square*, mark size=3pt, fill=barfillmcgp, draw=barfillmcgp!60!black}
+  },
+  legend style={at={(0.5,-0.15)},anchor=north,legend columns=2,font=\small},
+  tick label style={font=\small},
+  label style={font=\small}
+]
+
+% --- WGP selections (no x offset) ---
+\addplot[only marks, scatter, scatter src=explicit symbolic]
+coordinates {
+  (1,18) [wgp] (1,19) [wgp] (1,23) [wgp]
+  (2,18) [wgp] (2,19) [wgp] (2,23) [wgp]
+  (3,11) [wgp] (3,18) [wgp] (3,19) [wgp]
+  (4,1)  [wgp] (4,3)  [wgp] (4,23) [wgp]
+  (5,18) [wgp] (5,19) [wgp] (5,23) [wgp]
+  (6,1)  [wgp] (6,13) [wgp] (6,23) [wgp]
+  (7,3)  [wgp] (7,19) [wgp] (7,23) [wgp]
+  (8,12) [wgp] (8,18) [wgp] (8,19) [wgp]
+  (9,12) [wgp] (9,18) [wgp] (9,19) [wgp]
+  (10,18) [wgp] (10,19) [wgp] (10,23) [wgp]
+};
+\addlegendentry{WGP SA}
+
+% --- LGP selections (slight +0.28 x offset) ---
+\addplot[
+  only marks,
+  scatter, scatter src=explicit symbolic,
+  x filter/.code=\pgfmathparse{#1+0.28}\edef\pgfmathresult{\pgfmathresult}
+]
+coordinates {
+  (1,19) [lgp] (1,21) [lgp] (1,28) [lgp]
+  (2,19) [lgp] (2,21) [lgp] (2,28) [lgp]
+  (3,19) [lgp] (3,21) [lgp] (3,28) [lgp]
+  (4,19) [lgp] (4,21) [lgp] (4,28) [lgp]
+  (5,19) [lgp] (5,21) [lgp] (5,28) [lgp]
+  (6,19) [lgp] (6,21) [lgp] (6,28) [lgp]
+  (7,19) [lgp] (7,21) [lgp] (7,28) [lgp]
+  (8,19) [lgp] (8,21) [lgp] (8,28) [lgp]
+  (9,19) [lgp] (9,21) [lgp] (9,28) [lgp]
+  (10,19) [lgp] (10,21) [lgp] (10,28) [lgp]
+};
+\addlegendentry{LGP SA}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Dam site selections across weight test sets: WGP (circles) vs LGP (squares).}
+\label{fig:weight_sa_selections}
+\end{figure}

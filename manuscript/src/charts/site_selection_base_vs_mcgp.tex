@@ -12,7 +12,7 @@
     LGP-P3--Base,LGP-P3--MCGP
   },
   xtick=data,
-  ymin=0.5, ymax=28.5,
+  ymin=0, ymax=29,
   ytick={1,2,...,28},
   x tick label style={rotate=45,anchor=east,font=\small},
   width=16.5cm, height=9.5cm,
@@ -20,7 +20,7 @@
 ]
 
 % All points same color (blue circles)
-\addplot+[only marks, mark=*, mark options={fill=blue, draw=blue}, mark size=2.8pt]
+\addplot+[only marks, mark=*, mark options={fill=barfillbase, draw=barfillbase}, mark size=2.8pt]
   coordinates {
     % ---------- WGP ----------
     (WGP--Base,3) (WGP--Base,18) (WGP--Base,19)

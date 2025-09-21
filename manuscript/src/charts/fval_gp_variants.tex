@@ -1,0 +1,47 @@
+% In preamble:
+% \usepackage{pgfplots}
+% \pgfplotsset{compat=1.18}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  bar width=10pt,
+  width=15cm,
+  height=8cm,
+  ymin=0,
+  ylabel={Objective function value (fval)},
+  xlabel={Model},
+  symbolic x coords={WGP,CGP,EGP,LGP-P1,LGP-P2,LGP-P3},
+  xtick=data,
+  enlarge x limits=0.08,
+  ymajorgrids,
+  nodes near coords,
+  nodes near coords style={
+    /pgf/number format/fixed,
+    /pgf/number format/precision=2,
+    font=\footnotesize,
+    rotate=45, anchor=west,
+    text=black
+  },
+  every node near coord/.append style={font=\footnotesize},
+  tick label style={font=\small},
+  label style={font=\small}
+]
+
+\addplot+[fill=barfillbase, draw=barfillbase!60!black]
+  coordinates {
+    (WGP,14.93)
+    (CGP,25.28)
+    (EGP,32.68)
+    (LGP-P1,0)
+    (LGP-P2,0.0416)
+    (LGP-P3,83.46)
+  };
+
+\end{axis}
+\end{tikzpicture}
+\caption{Objective function values across GP variants and LGP priority levels.}
+\label{fig:fval_gp_variants}
+\end{figure}
